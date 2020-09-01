@@ -1,17 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+import Results from './components/Results';
+import Search from './components/Search';
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+const App = () => {
+    const [firstPlayer, setFirstPlayer] = useState({});
+    const [secondPlayer, setSecondPlayer] = useState({});
+
+    return (
+        <div className="ui container">
+            <Search setFirstPlayer={setFirstPlayer} setSecondPlayer={setSecondPlayer} />
+            <Results firstPlayer={firstPlayer} secondPlayer={secondPlayer} />
+        </div>
+    );
+}
+
+ReactDOM.render(<App />, document.getElementById('root'));
