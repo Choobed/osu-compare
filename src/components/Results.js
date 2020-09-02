@@ -7,8 +7,11 @@ import LowerStatistic from './osu/LowerStatistic';
 import Row from './Row';
 import User from './osu/User';
 
-const Results = ({ firstPlayer, secondPlayer }) => {
+const Results = ({ firstPlayer, secondPlayer, hasSearched }) => {
     if (!firstPlayer.id || !secondPlayer.id) {
+        if (hasSearched) {
+            return <div style={{textAlign: "center"}}>There was an error retrieving one or both of the users!</div>;
+        }
         return null;
     }
 

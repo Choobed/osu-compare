@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 import UsernameInput from './UsernameInput';
 
-const Search = ({ setFirstPlayer, setSecondPlayer }) => {
+const Search = ({ setFirstPlayer, setSecondPlayer, setHasSearched }) => {
     const [firstUsername, setFirstUsername] = useState('');
     const [secondUsername, setSecondUsername] = useState('');
     const [loading, setLoading] = useState(false);
@@ -15,11 +15,13 @@ const Search = ({ setFirstPlayer, setSecondPlayer }) => {
         const response = await axios.all([
             axios.get(`http://localhost:3001/?username=${firstUsername}`),
             axios.get(`http://localhost:3001/?username=${secondUsername}`)
-        ]);
+        ]).finally(() => {
+            setLoading(false);
+            setHasSearched(true);
+        });
 
         setFirstPlayer(response[0].data);
         setSecondPlayer(response[1].data);
-        setLoading(false);
     }
 
     return (
